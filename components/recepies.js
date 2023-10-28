@@ -5,9 +5,13 @@ import MasonryList from '@react-native-seoul/masonry-list';
 import {mealData} from "../constants"
 import Loading from "./loading"
 import { useNavigation } from '@react-navigation/native';
+import Animated, {FadeInDown  } from 'react-native-reanimated';
+
 export default function Recipes({categories , meals}) {
+
    const navigation = useNavigation()
     return (
+
       <View className="mx-4  space-y-3">
         <Text style= {{ fontSize: hp(3)}} className="font-semibold text-neutral-600"> recipes </Text>
         <View>
@@ -34,7 +38,7 @@ export default function Recipes({categories , meals}) {
 const RecipeCard =( {item, index , navigation} ) => {
     let isEven = index%2==0;
     return (
-        <View>
+        <Animated.View entering={FadeInDown.delay(index*100).duration(600).springify().damping(12)}>
             <Pressable
             style= {{ width: '100%' , paddingLeft: isEven? 0:8, paddingRight: isEven?8:0}}
             className="flex justify-center mb-4 space-y-1"
@@ -51,6 +55,6 @@ const RecipeCard =( {item, index , navigation} ) => {
                     }
                 </Text>
             </Pressable>
-        </View>
+        </Animated.View>
     )
 }
